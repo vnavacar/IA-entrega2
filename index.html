@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NLP Demo</title>
+    <link href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600" rel="stylesheet">
+    <link rel="stylesheet" href="dist/css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+</head>
+<body class="is-boxed has-animations">
+    <div class="body-wrap boxed-container">
+        <header class="site-header">
+
+        </header>
+
+        <main>
+            <section class="hero">
+                <div class="container">
+                    <div class="hero-inner">
+						<div class="hero-copy">
+	                        <h1 class="hero-title mt-0">Text classifier</h1>
+	                        <p class="hero-paragraph">
+                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel consequat diam. Aenean molestie nisi tellus, at aliquet ante tempor eu. Aliquam erat volutpat. In pharetra tellus ac lobortis cursus. Phasellus bibendum sagittis justo nec elementum. Vivamus accumsan est nec massa porttitor, nec vehicula massa elementum. Sed venenatis maximus sem, nec congue massa facilisis quis. Nulla aliquet gravida augue, quis ultrices lacus vulputate et. Nam finibus mauris quam, eget luctus nisl fermentum eu.
+                            </p>
+	                        <div class="hero-cta">
+		
+							</div>
+						</div>
+						<div class="hero-media">
+							<div class="header-illustration">
+								<img class="header-illustration-image asset-light" src="dist/images/header-illustration-light.svg" alt="Header illustration">
+							</div>
+							<div class="hero-media-illustration">
+								<img class="hero-media-illustration-image asset-light" src="dist/images/hero-media-illustration-light.svg" alt="Hero media illustration">
+
+							</div>
+							<div class="hero-media-container">
+								<img class="hero-media-image asset-light" src="dist/images/hero-media-light.png" alt="Hero media">
+							</div>
+						</div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="features section">
+                <div class="container">
+					<div class="features-inner section-inner has-bottom-divider">
+						<div class="features-header text-center">
+							<div class="container-sm">
+								<h2 class="section-title mt-0">Try it</h2>
+	                            <p class="section-paragraph">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel consequat diam. Aenean molestie nisi tellus, at aliquet ante tempor eu. Aliquam erat volutpat. In pharetra tellus ac lobortis cursus. Phasellus bibendum sagittis justo nec elementum. Vivamus accumsan est nec massa porttitor, nec vehicula massa elementum. Sed venenatis maximus sem, nec congue massa facilisis quis. Nulla aliquet gravida augue, quis ultrices lacus vulputate et. Nam finibus mauris quam, eget luctus nisl fermentum eu.</p>
+                                <textarea style="width: 100%" maxlength="140" class="features-box " id="textarea1" rows="4" cols="50" onkeyup="countChar(this)"></textarea><div id="charNum">140 chars</div>
+
+                                <br>
+                                
+                                <a class="button button-primary features-box" onclick="prediction()">Check</a>
+                                <input type="checkbox" class="features-box" id="punct-check" value="Punct">
+                                <label class="features-box" for="punct-check">Only Punct</label><br><br>
+                                <textarea style="width: 100%" disabled class="features-box " id="textarea2" rows="4" cols="50" placeholder="Checked text"></textarea>
+
+							</div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </section>
+
+			<section class="cta section">
+                <div class="container-sm">
+                    <div class="cta-inner section-inner">
+                        <div class="cta-header text-center">
+                            <h2 class="section-title mt-0"></h2>
+                            <p class="section-paragraph"></p>
+					    </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="site-footer has-top-divider">
+            <div class="container">
+                <div class="site-footer-inner">
+                    <div class="brand footer-brand">
+
+                    </div>
+                    <div class="footer-copyright">&copy; 2021  </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="dist/js/main.min.js"></script>
+
+    <script>
+
+        function prediction() {
+                            //console.log(document.getElementById("w3review").innerHTML)
+                            text_to_check = document.getElementById("textarea1").value;
+                            console.log(document.getElementById("punct-check").checked)
+                            document.getElementById("textarea2").innerHTML = "";
+                            document.getElementById("textarea2").placeholder = "Waiting answer...20 seg max...";
+                            console.log(text_to_check)
+                            $.ajax({
+                                    url: '',
+                                    type: 'POST',
+                                    data: JSON.stringify({text:text_to_check}),
+                                    dataType: "json",
+                                    success: function(response){
+                                        console.log(response);
+                                        document.getElementById("textarea2").innerHTML = response['response_text'];
+                                    },
+                                    error: function(error){
+                                        console.log(error);
+                                    }
+                                });
+                        };
+        
+        function random_text_sample() {
+
+            const samples = ["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vel consequat diam. Aenean molestie nisi tellus, at aliquet ante tempor eu. Aliquam erat volutpat.",
+                "In pharetra tellus ac lobortis cursus. Phasellus bibendum sagittis justo nec elementum. Vivamus accumsan est nec massa porttitor, nec vehicula massa elementum.",
+                "Sed venenatis maximus sem, nec congue massa facilisis quis. Nulla aliquet gravida augue, quis ultrices lacus vulputate et. Nam finibus mauris quam, eget luctus nisl fermentum eu."];
+
+            const random = Math.floor(Math.random() * samples.length);
+            document.getElementById("textarea1").innerHTML = samples[random];
+
+        };
+
+        $('#textarea1').keyup(function () {
+          var max = 140;
+          var len = $(this).val().length;
+          if (len == max) {
+            $('#charNum').text('You have reached the limit of chars');
+          } else {
+            var char = max - len;
+            $('#charNum').text(char + ' chars');
+          }
+        });
+
+        random_text_sample();
+    </script>
+</body>
+</html>
