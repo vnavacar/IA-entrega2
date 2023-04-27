@@ -1,5 +1,5 @@
 # IA-entrega2
-Repositorio ubicado en https://github.com/gabrielPelegri/Entrega-1-IA
+Repositorio ubicado en https://github.com/vnavacar/IA-entrega2.git
 
 Trabajo realizado por :
 
