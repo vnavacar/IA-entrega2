@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 import pickle
 import numpy as np
+from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
 
 app = Flask(__name__)
 
@@ -19,3 +20,14 @@ def predict():
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+def preprocess(text):
+    # Preprocess the input text
+    text = text.lower()
+    text = text.replace("\n", " ")
+    text = text.replace("\t", " ")
+    text = text.replace("\r", " ")
+    vectorizador = CountVectorizer(stop_words="english")
+    vectorizador.fit([text])
+
+    return text
