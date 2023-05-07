@@ -104,7 +104,7 @@
                             document.getElementById("textarea2").placeholder = "Waiting answer...20 seg max...";
                             console.log(text_to_check)
                             $.ajax({
-                                    url: '',
+                                    url: 'http://localhost:5000',
                                     type: 'POST',
                                     data: JSON.stringify({text:text_to_check}),
                                     dataType: "json",
